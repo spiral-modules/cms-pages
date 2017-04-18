@@ -42,7 +42,7 @@
                     $diff = $entity->diff;
                     if (empty($diff)) { ?>
                         <i>Identical</i>
-                    <? } else {
+                    <?php } else {
                         echo e($diff);
                     } ?></grid:cell>
                 <grid:cell label="[[Current content diff:]]">
@@ -50,7 +50,7 @@
                     $diff = $contents->calcDiff($page, $entity);
                     if (empty($diff)) { ?>
                         <i>Identical</i>
-                    <? } else {
+                    <?php } else {
                         echo e($diff);
                     } ?>
                 </grid:cell>
