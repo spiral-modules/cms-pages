@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit bootstrap="tests/bootstrap.php"
+         backupGlobals="false"
+         backupStaticAttributes="false"
+         colors="true"
+         verbose="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         processIsolation="false"
+         stopOnFailure="false"
+         stopOnError="false"
+         syntaxCheck="true">
+
+    <testsuites>
+        <testsuite name="Spiral Pages module">
+            <directory>./tests/</directory>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <whitelist>
+            <directory>./source/Pages/</directory>
+            <exclude>
+                <directory suffix=".php">./source/Pages/Controllers/</directory>
+                <directory suffix=".php">./source/Pages/Conditions/</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+</phpunit>
