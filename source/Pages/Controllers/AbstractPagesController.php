@@ -326,7 +326,8 @@ abstract class AbstractPagesController extends Controller
             ];
         }
 
-        $pages->setFieldsAndSave($page, $request->getFields(), $this->editor());
+        $pages->setFields($page, $request->getFields(), $this->editor());
+        $page->save();
 
         return [
             'status'  => 200,
@@ -361,6 +362,7 @@ abstract class AbstractPagesController extends Controller
         $this->allows('applyRevision', ['entity' => $page]);
 
         $pages->rollbackRevision($page, $revision, $this->editor());
+        $page->save();
 
         $uri = $this->vault->uri('pages:edit', ['id' => $page->primaryKey()]);
         if ($this->input->isAjax()) {
@@ -397,7 +399,8 @@ abstract class AbstractPagesController extends Controller
         /** @var Page $page */
         $page = $source->create();
 
-        $pages->setFieldsAndSave($page, $request, $this->editor());
+        $pages->setFields($page, $request->getFields(), $this->editor());
+        $page->save();
 
         return [
             'status' => 201,

@@ -20,23 +20,25 @@ class PageManagerTest extends BaseTest
         /** @var Page $page */
         $page = $this->orm->source(Page::class)->create();
 
-        $service->setFieldsAndSave($page, [
+        $service->setFields($page, [
             'title'       => 'title',
             'keywords'    => 'keyword1,keyword2',
             'description' => 'description',
             'slug'        => 'some-url',
             'source'      => '<p>some source</p>',
         ], null);
+        $page->save();
 
         $this->assertCount(1, $this->orm->source(Page::class));
 
-        $service->setFieldsAndSave($page, [
+        $service->setFields($page, [
             'title'       => 'title2',
             'keywords'    => 'keyword3,keyword4',
             'description' => 'description2',
             'slug'        => 'some-url2',
             'source'      => '<p>some source2</p>',
         ], null);
+        $page->save();
 
         $this->assertCount(1, $this->orm->source(Page::class));
         $this->assertCount(1, $this->orm->source(Revision::class));
@@ -52,14 +54,14 @@ class PageManagerTest extends BaseTest
         /** @var Page $page */
         $page = $this->orm->source(Page::class)->create();
 
-        $service->setFieldsAndSave($page, [
+        $service->setFields($page, [
             'title'       => 'title',
             'keywords'    => 'keyword1,keyword2',
             'description' => 'description',
             'slug'        => 'some-url',
             'source'      => '<p>some source</p>',
         ], null);
-
+        $page->save();
 
         $this->assertCount(1, $this->orm->source(Page::class));
         $this->assertTrue($page->status->isDraft());
@@ -81,23 +83,25 @@ class PageManagerTest extends BaseTest
         /** @var Page $page */
         $page = $this->orm->source(Page::class)->create();
 
-        $service->setFieldsAndSave($page, [
+        $service->setFields($page, [
             'title'       => 'title',
             'keywords'    => 'keyword1,keyword2',
             'description' => 'description',
             'slug'        => 'some-url',
             'source'      => '<p>some source</p>',
         ], null);
+        $page->save();
 
         $this->assertCount(1, $this->orm->source(Page::class));
 
-        $service->setFieldsAndSave($page, [
+        $service->setFields($page, [
             'title'       => 'title2',
             'keywords'    => 'keyword3,keyword4',
             'description' => 'description2',
             'slug'        => 'some-url2',
             'source'      => '<p>some source2</p>',
         ], null);
+        $page->save();
 
         $this->assertCount(1, $this->orm->source(Page::class));
         $this->assertCount(1, $this->orm->source(Revision::class));
@@ -118,11 +122,15 @@ class PageManagerTest extends BaseTest
         $this->assertSame('<p>some source2</p>', $page->source);
 
         $service->rollbackRevision($page, $revision);
+        $page->save();
 
         $this->assertSame('title', $page->title);
         $this->assertSame('keyword1,keyword2', $page->keywords);
         $this->assertSame('description', $page->description);
         $this->assertSame('some-url', $page->slug);
         $this->assertSame('<p>some source</p>', $page->source);
+
+        $this->assertCount(1, $this->orm->source(Page::class));
+        $this->assertCount(2, $this->orm->source(Revision::class));
     }
 }

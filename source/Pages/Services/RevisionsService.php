@@ -46,7 +46,6 @@ class RevisionsService extends Service
 
         $revision->editor = $prev->editor;
         $revision->diff = $this->contents->calcDiff($page, $prev);
-        $revision->page = $prev;
 
         return $revision;
     }

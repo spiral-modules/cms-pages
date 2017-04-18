@@ -15,16 +15,15 @@ use Spiral\Pages\PageConditionInterface;
  *
  * @package Spiral\Pages\Database
  *
- * @property SqlTimestamp $time_created
- * @property SqlTimestamp $time_updated
- * @property PageStatus   $status
- * @property string       $type
- * @property int          $versions_count
- * @property int          $revisions_count
- * @property string       $conditions
- *
- * @method HasManyRelation revisions()
- * @method HasManyRelation|Page[] versions()
+ * @property SqlTimestamp               $time_created
+ * @property SqlTimestamp               $time_updated
+ * @property PageStatus                 $status
+ * @property string                     $type
+ * @property int                        $versions_count
+ * @property int                        $revisions_count
+ * @property string                     $conditions
+ * @property HasManyRelation|Revision[] revisions
+ * @property HasManyRelation|Page[]     versions
  */
 class Page extends AbstractPageEntity
 {

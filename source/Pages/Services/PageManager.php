@@ -51,7 +51,7 @@ class PageManager extends Service
      * @param array                $request
      * @param EditorInterface|null $editor
      */
-    public function setFieldsAndSave(
+    public function setFields(
         Page $page,
         array $request,
         EditorInterface $editor = null
@@ -64,9 +64,7 @@ class PageManager extends Service
 
             $this->setFieldsFromRequest($page, $request, $editor);
 
-            if ($this->contents->contentsIdentical($page, $prev)) {
-                $page->save();
-            } else {
+            if (!$this->contents->contentsIdentical($page, $prev)) {
                 $this->addRevision($page, $prev);
             }
         }
@@ -95,9 +93,7 @@ class PageManager extends Service
         $page->editor = $editor;
         $page->content_hash = $this->contents->contentID($page);
 
-        if ($this->contents->contentsIdentical($page, $prev)) {
-            $page->save();
-        } else {
+        if (!$this->contents->contentsIdentical($page, $prev)) {
             $this->addRevision($page, $prev);
         }
     }
@@ -115,7 +111,7 @@ class PageManager extends Service
         $transaction->store($page);
 
         if ($page->hasVersions()) {
-            foreach ($page->versions() as $version) {
+            foreach ($page->versions as $version) {
                 $version->status->setDeleted();
                 $transaction->store($version);
             }
@@ -132,13 +128,10 @@ class PageManager extends Service
      */
     protected function addRevision(Page $page, Page $prev)
     {
-        $page->revisions_count++;
         $revision = $this->revisions->makeRevision($page, $prev);
 
-        $transaction = new Transaction();
-        $transaction->store($page);
-        $transaction->store($revision);
-        $transaction->run();
+        $page->revisions_count++;
+        $page->revisions->add($revision);
     }
 
     /**
