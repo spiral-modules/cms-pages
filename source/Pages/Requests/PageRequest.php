@@ -50,7 +50,7 @@ class PageRequest extends RequestFilter
      * @param string $value
      * @return string
      */
-    static public function trimSlug($value): string
+    public static function trimSlug($value): string
     {
         return strtolower(trim($value, ' /'));
     }
