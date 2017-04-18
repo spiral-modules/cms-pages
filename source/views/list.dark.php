@@ -76,8 +76,10 @@
                                value="<?= $entity->time_created->format('M jS, Y H:i') ?>"/>
                     <grid:cell label="[[Revisions:]]" sorter="revisions_count"
                                value="<?= $entity->revisions_count ?>"/>
-                    <?php/*<grid:cell label="[[Versions:]]" sorter="versions_count"
-                               value="<?= $entity->versions_count ?>"/>*/?>
+                    <?php
+                    /*<grid:cell label="[[Versions:]]" sorter="versions_count"
+                               value="<?= $entity->versions_count ?>"/>*/
+                    ?>
                     <grid:cell label="[[Status:]]" value="<?= e($entity->status) ?>"/>
                     <grid:cell class="right-align">
                         <vault:uri target="pages:edit" icon="edit"
