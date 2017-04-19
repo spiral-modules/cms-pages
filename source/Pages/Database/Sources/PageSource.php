@@ -89,15 +89,4 @@ class PageSource extends RecordSource
             'source'      => $revision->source,
         ]);
     }
-
-    /**
-     * Find page versions.
-     *
-     * @param Page $page
-     * @return RecordSelector
-     */
-    //public function findByParentPage(Page $page): RecordSelector
-    //{
-    //    return $this->find([Page::VERSION_KEY => $page->primaryKey()]);
-    //}
 }

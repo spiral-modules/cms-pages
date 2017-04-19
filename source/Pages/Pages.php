@@ -4,7 +4,6 @@ namespace Spiral\Pages;
 
 use Spiral\Pages\Database\Page;
 use Spiral\Pages\Database\Sources\PageSource;
-use Spiral\Pages\Services\VersionsService;
 
 /**
  * Class FinderService
@@ -16,37 +15,22 @@ class Pages
     /** @var PageSource */
     protected $source;
 
-    /** @var VersionsService */
-    protected $versions;
-
     /**
      * FinderService constructor.
      *
      * @param PageSource      $source
-     * @param VersionsService $versions
      */
-    public function __construct(PageSource $source, VersionsService $versions)
+    public function __construct(PageSource $source)
     {
         $this->source = $source;
-        $this->versions = $versions;
     }
 
     /**
-     * @param string     $uri
-     * @param mixed|null $context
+     * @param string $uri
      * @return null|Page
      */
-    public function find(string $uri, $context = null)
+    public function find(string $uri)
     {
-        $page = $this->source->findBySlug($uri);
-        if (empty($page)) {
-            return null;
-        }
-
-//        if ($page->hasVersions()) {
-//            $page = $this->versions->findVersion($page, $context);
-//        }
-
-        return $page;
+        return $this->source->findBySlug($uri);
     }
 }

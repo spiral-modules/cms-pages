@@ -3,7 +3,6 @@
 namespace Spiral\Pages\Services;
 
 use Spiral\Core\Service;
-use Spiral\ORM\Transaction;
 use Spiral\Pages\EditorInterface;
 use Spiral\Pages\Database\Page;
 use Spiral\Pages\Database\Revision;
@@ -99,25 +98,14 @@ class PageManager extends Service
     }
 
     /**
-     * Delete page with all versions.
+     * Delete page.
      *
      * @param Page $page
      */
     public function delete(Page $page)
     {
-        $transaction = new Transaction();
-
         $page->status->setDeleted();
-        $transaction->store($page);
-
-        if ($page->hasVersions()) {
-            foreach ($page->versions as $version) {
-                $version->status->setDeleted();
-                $transaction->store($version);
-            }
-        }
-
-        $transaction->run();
+        $page->save();
     }
 
     /**

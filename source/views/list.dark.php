@@ -47,16 +47,6 @@
                             ] ?>"/>
                         </listing:filter>
                     </div>
-                    <?php /*
-                    <div class="col s2">
-                        <listing:filter>
-                            <form:select name="versions" values="<?= [
-                                'has_versions'    => '[[Has versions]]',
-                                'has_no_versions' => '[[No versions]]'
-                            ] ?>"/>
-                        </listing:filter>
-                    </div>
-                    */?>
                     <div class="col s2">
                         <div class="right-align">
                             <listing:reset/>
@@ -76,10 +66,6 @@
                                value="<?= $entity->time_created->format('M jS, Y H:i') ?>"/>
                     <grid:cell label="[[Revisions:]]" sorter="revisions_count"
                                value="<?= $entity->revisions_count ?>"/>
-                    <?php
-                    /*<grid:cell label="[[Versions:]]" sorter="versions_count"
-                               value="<?= $entity->versions_count ?>"/>*/
-                    ?>
                     <grid:cell label="[[Status:]]" value="<?= e($entity->status) ?>"/>
                     <grid:cell class="right-align">
                         <vault:uri target="pages:edit" icon="edit"

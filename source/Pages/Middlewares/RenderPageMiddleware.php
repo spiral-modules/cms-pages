@@ -52,8 +52,7 @@ class RenderPageMiddleware extends Component implements MiddlewareInterface
                 throw new $exception;
             }
 
-            $page = $finder->find($uri, $request);
-
+            $page = $finder->find($uri);
             if (empty($page)) {
                 throw new $exception;
             }

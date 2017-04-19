@@ -48,7 +48,6 @@ class ListingService extends Service
         $listing->addSorter('title', new BinarySorter('title'));
         $listing->addSorter('slug', new BinarySorter('slug'));
         $listing->addSorter('revisions_count', new BinarySorter('revisions_count'));
-//        $listing->addSorter('versions_count', new BinarySorter('versions_count'));
         $listing->addSorter('time_created', new BinarySorter('time_created'));
         $listing->addSorter('time_updated', new BinarySorter('time_updated'));
 
@@ -56,11 +55,6 @@ class ListingService extends Service
             'has_revisions'    => new StaticFilter(['revisions_count' => ['>' => 0]]),
             'has_no_revisions' => new StaticFilter(['revisions_count' => 0])
         ]));
-
-//        $listing->addFilter('versions', new ComplexFilter([
-//            'has_versions'    => new StaticFilter(['versions_count' => ['>' => 0]]),
-//            'has_no_versions' => new StaticFilter(['versions_count' => 0])
-//        ]));
 
         $listing->addFilter(
             'status',
@@ -114,34 +108,4 @@ class ListingService extends Service
 
         return $listing;
     }
-
-//    /**
-//     * @param RecordSelector $selector
-//     * @return Listing
-//     */
-//    public function versionsListing(RecordSelector $selector): Listing
-//    {
-//        /** @var Listing $listing */
-//        $listing = $this->factory->make(Listing::class, [
-//            'selector' => $selector->distinct(),
-//        ]);
-//
-//        $listing->addSorter('time_created', new BinarySorter('time_created'));
-//
-//        $listing->addFilter(
-//            'search',
-//            new SearchFilter([
-//                'title'       => SearchFilter::LIKE_STRING,
-//                'slug'        => SearchFilter::LIKE_STRING,
-//                'description' => SearchFilter::LIKE_STRING,
-//                'keywords'    => SearchFilter::LIKE_STRING,
-//                'source'      => SearchFilter::LIKE_STRING,
-//            ])
-//        );
-//
-//        $defaultState = new StaticState('time_created', [], SorterInterface::DESC);
-//        $listing->setDefaultState($defaultState)->setNamespace('version');
-//
-//        return $listing;
-//    }
 }
