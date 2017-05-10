@@ -12,3 +12,16 @@ Spiral CMS pages module. Allows to create dynamic cms pages and manage them.
 composer require spiral/pages
 spiral register spiral/pages
 ```
+
+##Register in navigation
+```
+'pages' => [
+    'title'    => 'Pages',
+    'icon'     => 'description',
+    'requires' => 'vault.pages',
+    'items'    => [
+        'pages' => ['title' => 'CMS Pages'],
+        /*{{navigation.pages}}*/
+    ]
+],
+```

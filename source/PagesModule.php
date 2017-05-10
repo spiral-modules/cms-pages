@@ -28,8 +28,8 @@ class PagesModule implements ModuleInterface
         //Register view namespace
         $registrator->configure('views', 'namespaces.spiral', 'spiral/pages', [
             "'pages' => [",
-                "directory('libraries') . 'spiral/pages/source/views/',",
-                "/*{{namespaces.pages}}*/",
+            "directory('libraries') . 'spiral/pages/source/views/',",
+            "/*{{namespaces.pages}}*/",
             "],",
         ]);
 
@@ -42,22 +42,15 @@ class PagesModule implements ModuleInterface
             "],",
         ]);
 
-        //Register controller in navigation config
+        //Register controller in vault config
         $registrator->configure('modules/vault', 'controllers', 'spiral/pages', [
-            "'pages' => \\Spiral\\Pages\\Controllers\\AbstractPagesController::class,",
+            "'pages' => \\Spiral\\Pages\\Controllers\\PagesController::class,",
         ]);
 
-        //Register menu item in navigation config
-        $registrator->configure('modules/vault', 'navigation', 'spiral/pages', [
-            "'pages' => [",
-            "    'title'    => 'Pages',",
-            "    'icon'     => 'description',",
-            "    'requires' => 'vault.pages',",
-            "    'items'    => [",
-            "        'pages' => ['title' => 'CMS Pages'],",
-            "        /*{{navigation.pages}}*/",
-            "    ]",
-            "],",
+        //Register view environment variables
+        $registrator->configure('views', 'environment', 'spiral/pages', [
+            "'page.editable'     => [\\Spiral\\Pages\\Permissions::class, 'canEdit'],",
+            "'page.canViewDraft' => [\\Spiral\\Pages\\Permissions::class, 'canViewDraft'],",
         ]);
     }
 
@@ -66,6 +59,7 @@ class PagesModule implements ModuleInterface
      */
     public function publish(PublisherInterface $publisher, DirectoriesInterface $directories)
     {
+        //Publish config
         $publisher->publish(
             __DIR__ . '/config/config.php',
             $directories->directory('config') . Config::CONFIG . '.php',

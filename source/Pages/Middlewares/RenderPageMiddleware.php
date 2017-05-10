@@ -10,6 +10,7 @@ use Spiral\Http\Exceptions\ClientException;
 use Spiral\Http\MiddlewareInterface;
 use Spiral\Pages\Config;
 use Spiral\Pages\Pages;
+use Spiral\Pages\Permissions;
 use Spiral\Pages\Services;
 use Spiral\Views\ViewsInterface;
 
@@ -38,11 +39,13 @@ class RenderPageMiddleware extends Component implements MiddlewareInterface
     public function __invoke(Request $request, Response $response, callable $next)
     {
         /**
-         * @var Pages  $finder
-         * @var Config $config
+         * @var Pages                $finder
+         * @var Config               $config
+         * @var Permissions $permissions
          */
         $finder = $this->container->get(Pages::class);
         $config = $this->container->get(Config::class);
+        $permissions = $this->container->get(Permissions::class);
         $uri = $request->getUri()->getPath();
 
         try {
@@ -52,7 +55,8 @@ class RenderPageMiddleware extends Component implements MiddlewareInterface
                 throw new $exception;
             }
 
-            $page = $finder->find($uri);
+            //If can view draft - pass false (not active only)
+            $page = $finder->find($uri, $permissions->canViewDraft() ? false : true);
             if (empty($page)) {
                 throw new $exception;
             }
@@ -64,7 +68,7 @@ class RenderPageMiddleware extends Component implements MiddlewareInterface
             $views = $this->container->get(ViewsInterface::class);
 
             $response->getBody()->write(
-                $views->render($config->page(), compact('page'))
+                $views->render($config->pageView(), compact('page'))
             );
 
             return $response;

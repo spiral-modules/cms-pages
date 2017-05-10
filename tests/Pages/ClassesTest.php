@@ -14,7 +14,10 @@ class ClassesTest extends BaseTest
         $config = $this->container->get(Config::class);
 
         $this->assertNotEmpty($config->fields());
-        $this->assertNotEmpty($config->page());
+        $this->assertNotEmpty($config->pageView());
+        $this->assertNotEmpty($config->editCMSPermission());
+        $this->assertNotEmpty($config->viewDraftPermission());
+        $this->assertNotEmpty($config->showDraftNotice());
     }
 
     public function testUtils()

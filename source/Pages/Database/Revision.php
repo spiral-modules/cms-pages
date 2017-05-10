@@ -23,9 +23,9 @@ class Revision extends AbstractPageEntity
     const TABLE = 'revisions';
 
     const SCHEMA = [
-        'time_started'    => 'datetime',
-        'time_ended'      => 'datetime',
-        'diff'            => 'string',
+        'time_started' => 'datetime',
+        'time_ended'   => 'datetime',
+        'diff'         => 'string',
     ];
 
     const FILLABLE = ['time_started', 'time_ended'];

@@ -5,14 +5,27 @@ namespace TestApplication\Database;
 use Spiral\ORM\Record;
 use Spiral\Pages\EditorInterface;
 
+/**
+ * Class User
+ *
+ * @package TestApplication\Database
+ * @property int    $id
+ * @property string $name
+ */
 class User extends Record implements EditorInterface
 {
-    const SCHEMA   = [
+    /**
+     * {@inheritdoc}
+     */
+    const SCHEMA = [
         'id'   => 'primary',
         'name' => 'string(32)',
     ];
 
-    public function getName()
+    /**
+     * {@inheritdoc}
+     */
+    public function getName(): string
     {
         return $this->name;
     }

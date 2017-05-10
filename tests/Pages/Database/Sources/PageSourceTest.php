@@ -5,6 +5,7 @@ namespace Spiral\Tests\Pages\Database\Sources;
 use Spiral\Pages\Database\Page;
 use Spiral\Pages\Database\Revision;
 use Spiral\Pages\Database\Sources\PageSource;
+use Spiral\Pages\Database\Types\PageStatus;
 use Spiral\Tests\BaseTest;
 
 class PageSourceTest extends BaseTest
@@ -57,18 +58,25 @@ class PageSourceTest extends BaseTest
         $page->save();
 
         $this->assertNotEmpty($source->findOne());
-        $this->assertEmpty($source->findOne(['status' => 'active']));
+        $this->assertEmpty($source->findOne(['status' => PageStatus::ACTIVE]));
+        $this->assertNotEmpty($source->findOne(['status' => PageStatus::DRAFT]));
+        $this->assertEmpty($source->findOne(['status' => PageStatus::DELETED]));
 
         $page->status->setActive();
         $page->save();
 
         $this->assertNotEmpty($source->findOne());
-        $this->assertEmpty($source->findOne(['status' => 'draft']));
+        $this->assertNotEmpty($source->findOne(['status' => PageStatus::ACTIVE]));
+        $this->assertEmpty($source->findOne(['status' => PageStatus::DRAFT]));
+        $this->assertEmpty($source->findOne(['status' => PageStatus::DELETED]));
 
         $page->status->setDeleted();
         $page->save();
 
         $this->assertEmpty($source->findOne());
+        $this->assertEmpty($source->findOne(['status' => PageStatus::ACTIVE]));
+        $this->assertEmpty($source->findOne(['status' => PageStatus::DRAFT]));
+        $this->assertEmpty($source->findOne(['status' => PageStatus::DELETED]));
     }
 
     public function testFind()
@@ -92,8 +100,9 @@ class PageSourceTest extends BaseTest
         $page->save();
 
         $this->assertCount(2, $source->find());
-        $this->assertCount(1, $source->find(['status' => 'active']));
-        $this->assertCount(1, $source->find(['status' => 'draft']));
+        $this->assertCount(1, $source->find(['status' => PageStatus::ACTIVE]));
+        $this->assertCount(1, $source->find(['status' => PageStatus::DRAFT]));
+        $this->assertCount(0, $source->find(['status' => PageStatus::DELETED]));
     }
 
     public function testFindBySlug()
@@ -109,18 +118,25 @@ class PageSourceTest extends BaseTest
         $page->slug = 'slug';
         $page->save();
 
-        //Test only ACTIVE pages are found
+        //Test status of pages to be found
         $this->assertEmpty($source->findBySlug('slug'));
+
+        $found = $source->findBySlug('slug', false);
+        $this->assertNotEmpty($found);
+        $this->assertSame($page->primaryKey(), $found->primaryKey());
 
         $page->status->setDeleted();
         $page->save();
 
         $this->assertEmpty($source->findBySlug('slug'));
+        $this->assertEmpty($source->findBySlug('slug', false));
 
         $page->status->setActive();
         $page->save();
 
         $this->assertNotEmpty($source->findBySlug('slug'));
+        $this->assertNotEmpty($source->findBySlug('slug', false));
+
         $this->assertNotEmpty($source->findBySlug('slug/'));
         $this->assertNotEmpty($source->findBySlug('/slug/'));
         $this->assertNotEmpty($source->findBySlug('/slug'));

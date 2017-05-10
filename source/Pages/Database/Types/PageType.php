@@ -9,16 +9,18 @@ class PageType extends EnumColumn
     /**
      * Types.
      */
-    const PAGE  = 'active';
-    const VERSION   = 'draft';
+    const PAGE    = 'page';
+    const VERSION = 'version';
 
     /**
      * Values.
+     * {@inheritdoc}
      */
     const VALUES  = [self::PAGE, self::VERSION];
 
     /**
      * Default values.
+     * {@inheritdoc}
      */
     const DEFAULT = self::PAGE;
 }

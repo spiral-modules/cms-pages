@@ -21,10 +21,8 @@ class RevisionsService extends Service
      * @param RevisionSource     $source
      * @param UniquePageContents $contents
      */
-    public function __construct(
-        RevisionSource $source,
-        UniquePageContents $contents
-    ) {
+    public function __construct(RevisionSource $source, UniquePageContents $contents)
+    {
         $this->source = $source;
         $this->contents = $contents;
     }

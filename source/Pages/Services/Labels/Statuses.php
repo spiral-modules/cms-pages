@@ -19,24 +19,28 @@ class Statuses
     }
 
     /**
-     * @param string $name
+     * Get label for status.
+     *
+     * @param string $status
      * @return null|string
      */
-    public function label(string $name)
+    public function label(string $status)
     {
-        if ($this->isListed($name)) {
-            return $this->labels[$name];
+        if ($this->isListed($status)) {
+            return $this->labels[$status];
         }
 
         return null;
     }
 
     /**
-     * @param string $name
+     * If status is listed
+     *
+     * @param string $status
      * @return bool
      */
-    public function isListed(string $name): bool
+    public function isListed(string $status): bool
     {
-        return array_key_exists($name, $this->labels);
+        return array_key_exists($status, $this->labels);
     }
 }

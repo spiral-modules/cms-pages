@@ -17,7 +17,7 @@ use Spiral\Pages\Database\Types\PageType;
  * @property SqlTimestamp               $time_created
  * @property SqlTimestamp               $time_updated
  * @property PageStatus                 $status
- * @property string                     $type
+ * @property PageType                   $type
  * @property int                        $revisions_count
  * @property HasManyRelation|Revision[] revisions
  */
@@ -25,16 +25,24 @@ class Page extends AbstractPageEntity
 {
     use TimestampsTrait;
 
+    /**
+     * {@inheritdoc}
+     */
     const ACTIVE_SCHEMA = true;
 
-    const PRIMARY_KEY  = 'id';
     const REVISION_KEY = 'page_id';
 
+    /**
+     * {@inheritdoc}
+     */
     const TABLE = 'pages';
 
+    /**
+     * {@inheritdoc}
+     */
     const SCHEMA = [
         'status'          => PageStatus::class,
-        'type'            => PageType::class,
+        'type'            => PageType::class, //for future version feature
 
         //Revisions
         'revisions'       => [
@@ -59,7 +67,7 @@ class Page extends AbstractPageEntity
      */
     public function setStatus(string $status): bool
     {
-        if (in_array($status, [PageStatus::ACTIVE, PageStatus::DRAFT])) {
+        if (in_array($status, PageStatus::ALLOWED_VALUES)) {
             $this->status = $status;
 
             return true;

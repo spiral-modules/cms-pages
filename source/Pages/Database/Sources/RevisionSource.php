@@ -10,6 +10,9 @@ use Spiral\Pages\Database\Revision;
 
 class RevisionSource extends RecordSource
 {
+    /**
+     * {@inheritdoc}
+     */
     const RECORD = Revision::class;
 
     /**
@@ -29,14 +32,13 @@ class RevisionSource extends RecordSource
      */
     public function findLastForPage(Page $page)
     {
-        return $this
-            ->findByPage($page)
+        return $this->findByPage($page)
             ->orderBy([Revision::PRIMARY_KEY => SelectQuery::SORT_DESC])
             ->findOne();
     }
 
     /**
-     * @param Page $page
+     * @param Page               $page
      * @param \DateTimeInterface $timeStarted
      * @param \DateTimeInterface $timeEnded
      * @return Revision
