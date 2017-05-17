@@ -187,4 +187,47 @@ class MiddlewareTest extends HttpTest
         $this->assertNotEquals($page->primaryKey(), $div->attr('data-id'));
         $this->assertSame($page->source, trim($div->html()));
     }
+
+    public function testRenderWithDefaults()
+    {
+        $page = $this->makePage();
+        $page->keywords = '';
+        $page->description = '';
+        $page->metaTags = '';
+        $page->save();
+
+        $this->assertCount(1, $this->orm->source(Page::class));
+
+        $env = $this->views->getEnvironment()->withDependency('page.editable', function () {
+            return false;
+        });
+
+        /** @var Config $config */
+        $config = $this->container->get(Config::class);
+        $crawler = new Crawler($this->views->withEnvironment($env)->render(
+            $config->pageView(),
+            compact('page')
+        ));
+
+        //page metadata
+        $title = $crawler->filterXPath('//title')->html();
+        $description = $crawler->filterXPath('//meta[@name="description"]')->attr('content');
+        $keywords = $crawler->filterXPath('//meta[@name="keywords"]')->attr('content');
+        $custom = $crawler->filterXPath('//meta[@name="baz"]')->attr('content');
+
+        $this->assertSame($page->title, $title);
+        $this->assertSame('default description', $description);
+        $this->assertSame('default,keywords', $keywords);
+        $this->assertSame('default tags', $custom);
+
+        //check js
+        $this->assertEmpty($crawler->filterXPath('//script'));
+
+        //page div
+        $div = $crawler->filterXPath('//div');
+        $this->assertGreaterThan(0, $div->count());
+        $this->assertNotSame('html', $div->attr('data-piece'));
+        $this->assertNotEquals($page->primaryKey(), $div->attr('data-id'));
+        $this->assertSame($page->source, trim($div->html()));
+    }
 }

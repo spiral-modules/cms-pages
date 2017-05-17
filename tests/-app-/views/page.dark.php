@@ -8,7 +8,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <pages:meta page="<?= $page ?>" description="hello"/>
+    <pages:meta page="<?= $page ?>" description="default description" keywords="default,keywords">
+        <meta name="baz" content="default tags">
+    </pages:meta>
 </head>
 <body>
 <pages:page page="<?= $page ?>"/>
