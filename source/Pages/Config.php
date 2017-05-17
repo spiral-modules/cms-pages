@@ -25,6 +25,7 @@ class Config extends InjectableConfig
         'page'                  => '',
         'editCMSPermission'     => 'vault.pages.editCMS',
         'viewDraftPermission'   => 'vault.pages.viewDraft',
+        'showDraftNotice'       => true,
     ];
 
     /**
@@ -35,6 +36,16 @@ class Config extends InjectableConfig
     public function fields(): array
     {
         return $this->config['unique-content-fields'];
+    }
+
+    /**
+     * Will notice about draft page status be shown for admin users.
+     *
+     * @return bool
+     */
+    public function showDraftNotice(): bool
+    {
+        return !empty($this->config['showDraftNotice']);
     }
 
     /**

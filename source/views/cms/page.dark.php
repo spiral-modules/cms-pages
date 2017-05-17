@@ -7,7 +7,14 @@ $this->runtimeVariable('page', '${page}');
 ?>
 
 <?php if ($page->status->isDraft()) { ?>
-    <p>[[This page is in a draft mode and can be viewed only by admin users.]]</p>
+
+    <?php #compile
+    /** @var \Spiral\Pages\Config $config */
+    $config = spiral(\Spiral\Pages\Config::class);
+    if ($config->showDraftNotice()) { ?>
+        <p>[[This page is in a draft mode and can be viewed only by admin users.]]</p>
+    <?php } #compile ?>
+
 <?php } ?>
 
 <?php if ($environment->getValue('page.editable')) { #compile ?>
