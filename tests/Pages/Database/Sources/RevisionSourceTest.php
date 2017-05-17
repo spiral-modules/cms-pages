@@ -3,7 +3,6 @@
 namespace Spiral\Tests\Pages\Database\Sources;
 
 use Spiral\Models\Accessors\AbstractTimestamp;
-use Spiral\ORM\Transaction;
 use Spiral\Pages\Database\Page;
 use Spiral\Pages\Database\Revision;
 use Spiral\Pages\Database\Sources\RevisionSource;
@@ -22,16 +21,14 @@ class RevisionSourceTest extends BaseTest
         $page = $this->orm->source(Page::class)->create();
         $source = $this->container->get(RevisionSource::class);
 
-        $revision = $source->create();
-        $revision->page = $page;
+        $page->revisions->add($source->create());
+        $page->save();
 
-        $transaction = new Transaction();
-        $transaction->store($page);
-        $transaction->store($revision);
-        $transaction->run();
+        $revision = $source->create();
+        $revision->save();
 
         $this->assertCount(1, $this->orm->source(Page::class));
-        $this->assertCount(1, $source);
+        $this->assertCount(2, $source);
         $this->assertCount(1, $source->findByPage($page));
 
         $revision2 = $source->findByPage($page)->findOne();
@@ -51,18 +48,17 @@ class RevisionSourceTest extends BaseTest
         $source = $this->container->get(RevisionSource::class);
 
         $revision = $source->create();
-        $revision2 = $source->create();
-        $revision->page = $page;
-        $revision2->page = $page;
+        $revision->save();
 
-        $transaction = new Transaction();
-        $transaction->store($page);
-        $transaction->store($revision);
-        $transaction->store($revision2);
-        $transaction->run();
+        $revision2 = $source->create();
+
+        $page->revisions->add($source->create());
+        $page->revisions->add($revision2);
+        $page->save();
 
         $this->assertCount(1, $this->orm->source(Page::class));
-        $this->assertCount(2, $source);
+        $this->assertCount(3, $source);
+        $this->assertCount(2, $source->findByPage($page));
 
         $revision3 = $source->findLastForPage($page);
         $this->assertNotEmpty($revision3);
@@ -79,7 +75,6 @@ class RevisionSourceTest extends BaseTest
          */
         $page = $this->orm->source(Page::class)->create();
         $source = $this->container->get(RevisionSource::class);
-
 
         $page->title = 'title';
         $page->keywords = 'keyword1,keyword2';
@@ -98,7 +93,13 @@ class RevisionSourceTest extends BaseTest
         $this->assertSame($page->slug, $revision->slug);
         $this->assertSame($page->source, $revision->source);
         $this->assertSame($page->source, $revision->source);
-        $this->assertSame($start->format(AbstractTimestamp::DEFAULT_FORMAT), $revision->time_started->format(AbstractTimestamp::DEFAULT_FORMAT));
-        $this->assertSame($end->format(AbstractTimestamp::DEFAULT_FORMAT), $revision->time_ended->format(AbstractTimestamp::DEFAULT_FORMAT));
+        $this->assertSame(
+            $start->format(AbstractTimestamp::DEFAULT_FORMAT),
+            $revision->time_started->format(AbstractTimestamp::DEFAULT_FORMAT)
+        );
+        $this->assertSame(
+            $end->format(AbstractTimestamp::DEFAULT_FORMAT),
+            $revision->time_ended->format(AbstractTimestamp::DEFAULT_FORMAT)
+        );
     }
 }

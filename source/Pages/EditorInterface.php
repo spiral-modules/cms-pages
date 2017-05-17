@@ -5,9 +5,14 @@ namespace Spiral\Pages;
 /**
  * Interface EditorInterface
  *
- * @package Spiral\Pages\Database\Entities
+ * @package Spiral\Pages
  */
 interface EditorInterface
 {
-    public function getName();
+    /**
+     * Current page editor name.
+     *
+     * @return string
+     */
+    public function getName(): string;
 }

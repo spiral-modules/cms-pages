@@ -15,8 +15,7 @@ class EntityChecker extends AbstractChecker
 
     /**
      * Default error messages associated with checker method by name.
-     *
-     * @var array
+     * {@inheritdoc}
      */
     const MESSAGES = [
         'isUnique' => '[[Must be unique value.]]',
@@ -41,7 +40,7 @@ class EntityChecker extends AbstractChecker
         $source = $this->container->get($sourceClass);
         $another = $source->findOne([$field => $value]);
 
-        //Another page in database with same field value will cause error.
+        //Another entity in database with same field value will cause error.
         return empty($another);
     }
 }

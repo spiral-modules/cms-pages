@@ -14,7 +14,6 @@ use Spiral\Listing\SorterInterface;
 use Spiral\Listing\Sorters\BinarySorter;
 use Spiral\Listing\StaticState;
 use Spiral\ORM\Entities\RecordSelector;
-use Spiral\Pages\Database\Page;
 
 class ListingService extends Service
 {
@@ -44,7 +43,7 @@ class ListingService extends Service
             'selector' => $selector->distinct(),
         ]);
 
-        $listing->addSorter(Page::PRIMARY_KEY, new BinarySorter(Page::PRIMARY_KEY));
+        $listing->addSorter('id', new BinarySorter('id'));
         $listing->addSorter('title', new BinarySorter('title'));
         $listing->addSorter('slug', new BinarySorter('slug'));
         $listing->addSorter('revisions_count', new BinarySorter('revisions_count'));

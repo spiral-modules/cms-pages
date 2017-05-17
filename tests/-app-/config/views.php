@@ -42,6 +42,10 @@ return [
         'profiler' => [
             directory("root") . '../../source/views/',
         ],
+        'pages'    => [
+            directory('libraries') . '../source/views/',
+            /*{{namespaces.pages}}*/
+        ],
         /*{{namespaces}}*/
     ],
 
@@ -50,9 +54,11 @@ return [
      * goal is to provide ability to evaluate some functionality at compilation (not runtime) phase.
      */
     'environment' => [
-        'language' => ['translator', 'getLocale'],
-        'basePath' => ['http', 'basePath'],
+        'language'          => ['translator', 'getLocale'],
+        'basePath'          => ['http', 'basePath'],
         /*{{environment}}*/
+        'page.editable'     => [\Spiral\Pages\Permissions::class, 'canEdit'],
+        'page.canViewDraft' => [\Spiral\Pages\Permissions::class, 'canViewDraft'],
     ],
 
     /*

@@ -1,12 +1,16 @@
 <?php
 
 return [
-    'fields' => [
+    'unique-content-fields' => [
         'slug',
         'title',
         'description',
         'source',
         'keywords',
+        'metaTags'
     ],
-    'page'   => 'pages:page'
+    'page'                  => '',
+    'editCMSPermission'     => 'vault.pages.editCMS',
+    'viewDraftPermission'   => 'vault.pages.viewDraft',
+    'showDraftNotice'       => true,
 ];

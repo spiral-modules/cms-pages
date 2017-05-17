@@ -5,13 +5,12 @@ namespace Spiral\Tests\Pages\Services;
 use Spiral\Models\Accessors\AbstractTimestamp;
 use Spiral\Pages\Database\Page;
 use Spiral\Pages\Database\Revision;
-use Spiral\Pages\Services\HashService;
 use Spiral\Pages\Services\RevisionsService;
 use Spiral\Tests\BaseTest;
 
 class RevisionsTest extends BaseTest
 {
-    public function testEquals()
+    public function testMakeRevision()
     {
         /** @var RevisionsService $service */
         $service = $this->container->get(RevisionsService::class);

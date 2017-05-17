@@ -11,6 +11,9 @@ use Spiral\Pages\Database\Types\PageType;
 
 class PageSource extends RecordSource
 {
+    /**
+     * {@inheritdoc}
+     */
     const RECORD = Page::class;
 
     /**
@@ -34,7 +37,11 @@ class PageSource extends RecordSource
      */
     public function findOne(array $query = [], array $sortBy = [], array $load = [])
     {
-        return parent::find($this->notDeletedClause())->orderBy($sortBy)->load($load)->findOne($query);
+        return parent::find($query)
+            ->andWhere($this->notDeletedClause())
+            ->orderBy($sortBy)
+            ->load($load)
+            ->findOne();
     }
 
     /**
@@ -60,15 +67,19 @@ class PageSource extends RecordSource
      * Find page by a slug.
      *
      * @param string $slug
-     * @return Page|null
+     * @param bool   $activeOnly
+     * @return null|Page
      */
-    public function findBySlug(string $slug)
+    public function findBySlug(string $slug, bool $activeOnly = true)
     {
         $query = [
-            'slug'   => strtolower(trim($slug, ' /')),
-            'status' => PageStatus::ACTIVE,
-            'type'   => PageType::PAGE
+            'slug' => strtolower(trim($slug, ' /')),
+            'type' => PageType::PAGE
         ];
+
+        if (!empty($activeOnly)) {
+            $query['status'] = PageStatus::ACTIVE;
+        }
 
         return $this->findOne($query);
     }

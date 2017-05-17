@@ -15,13 +15,16 @@ class PageStatus extends EnumColumn
 
     /**
      * Values.
+     * {@inheritdoc}
      */
-    const VALUES  = [self::ACTIVE, self::DRAFT, self::DELETED];
+    const VALUES         = [self::ACTIVE, self::DRAFT, self::DELETED];
+    const ALLOWED_VALUES = [self::ACTIVE, self::DRAFT];
 
     /**
      * Default values.
+     * {@inheritdoc}
      */
-    const DEFAULT = self::DRAFT;
+    const DEFAULT        = self::DRAFT;
 
     /**
      * If status is active.
@@ -54,7 +57,7 @@ class PageStatus extends EnumColumn
     }
 
     /**
-     * Set aactive status.
+     * Set active status.
      */
     public function setActive()
     {
