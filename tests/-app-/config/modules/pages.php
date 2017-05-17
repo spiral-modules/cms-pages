@@ -12,5 +12,4 @@ return [
     'page'                  => 'page',
     'editCMSPermission'     => 'vault.pages.editCMS',
     'viewDraftPermission'   => 'vault.pages.viewDraft',
-    'showDraftNotice'       => true,
 ];

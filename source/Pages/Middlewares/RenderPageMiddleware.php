@@ -39,8 +39,8 @@ class RenderPageMiddleware extends Component implements MiddlewareInterface
     public function __invoke(Request $request, Response $response, callable $next)
     {
         /**
-         * @var Pages                $finder
-         * @var Config               $config
+         * @var Pages       $finder
+         * @var Config      $config
          * @var Permissions $permissions
          */
         $finder = $this->container->get(Pages::class);

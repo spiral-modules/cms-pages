@@ -17,7 +17,6 @@ class ClassesTest extends BaseTest
         $this->assertNotEmpty($config->pageView());
         $this->assertNotEmpty($config->editCMSPermission());
         $this->assertNotEmpty($config->viewDraftPermission());
-        $this->assertNotEmpty($config->showDraftNotice());
     }
 
     public function testUtils()
