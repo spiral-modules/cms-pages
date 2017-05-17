@@ -28,7 +28,7 @@ Need to place navigation links in admin panel? Use example code below:
 ],
 ```
 
-##Usage
+## Usage
 
 In pages config please define `page` value - a path to your view file where you will include spiral page tags:
 ```
@@ -72,7 +72,7 @@ Only pages in active status are visible for users. <br/>
 Admins can view them in draft when is is allowed, they need to have `viewDraftPermission` defined in pages config. <br/>
 >In this case they will see some notice that this page currently in draft, you can disable notice by `showDraftNotice` value in pages config.
 
-##On-page editing (waiting writeaway module to be finished)
+## On-page editing (waiting writeaway module to be finished)
 
 If you have enough permissions (`editCMSPermission` value in pages config) you may use inline editor to change page content. <br/>
 All you need is:
@@ -80,5 +80,5 @@ All you need is:
 1. install `writeaway/writeaway` npm module
 2. define get/set urls for meta data editor and source data editor
 
-##todo
+## todo
 1. Add visual editor in admin panel
