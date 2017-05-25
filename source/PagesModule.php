@@ -26,7 +26,7 @@ class PagesModule implements ModuleInterface
         ]);
 
         //Register view namespace
-        $registrator->configure('views', 'namespaces.spiral', 'spiral/pages', [
+        $registrator->configure('views', 'namespaces', 'spiral/pages', [
             "'pages' => [",
             "directory('libraries') . 'spiral/pages/source/views/',",
             "/*{{namespaces.pages}}*/",
