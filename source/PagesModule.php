@@ -25,6 +25,11 @@ class PagesModule implements ModuleInterface
             "directory('libraries') . 'spiral/pages/source/Pages/Database/',",
         ]);
 
+        //Register http middleware
+        $registrator->configure('http', 'middlewares', 'spiral/pages', [
+            "\\Spiral\\Pages\\Middlewares\\RenderPageMiddleware::class,",
+        ]);
+
         //Register view namespace
         $registrator->configure('views', 'namespaces', 'spiral/pages', [
             "'pages' => [",
