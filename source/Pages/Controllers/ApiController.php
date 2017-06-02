@@ -23,18 +23,31 @@ class ApiController extends Controller
 {
     use GuardedTrait, TranslatorTrait;
 
-    /**
-     * @param string|int  $id
+    private $source;
+    private $config;
+    private $permissions;
+    
+     /**
      * @param PageSource  $source
      * @param Config      $config
      * @param Permissions $permissions
+     */
+    public function __construct(PageSource $source, Config $config, Permissions $permissions)
+    {
+        $this->source = $source;
+        $this->config = $config;
+        $this->permissions = $permissions;
+    }
+    
+    /**
+     * @param string|int  $id
      * @return array
      */
-    public function getMetaAction($id, PageSource $source, Config $config, Permissions $permissions)
+    public function getMetaAction($id): array
     {
-        $this->allows($config->editCMSPermission());
+        $this->allows($this->config->editCMSPermission());
 
-        $page = $source->findByPK($id);
+        $page = $this->source->findByPK($id);
         if (empty($page)) {
             return [
                 'status' => 400,
@@ -42,7 +55,7 @@ class ApiController extends Controller
             ];
         }
 
-        if ($page->status->isDraft() && !$permissions->canViewDraft()) {
+        if ($page->status->isDraft() && !$this->permissions->canViewDraft()) {
             throw new ForbiddenException();
         }
 
@@ -59,26 +72,20 @@ class ApiController extends Controller
 
     /**
      * @param string|int      $id
-     * @param PageSource      $source
      * @param MetaRequest     $request
-     * @param Config          $config
      * @param PageEditor      $service
      * @param EditorInterface $editor
-     * @param Permissions     $permissions
      * @return array
      */
     public function saveMetaAction(
         $id,
-        PageSource $source,
         MetaRequest $request,
-        Config $config,
         PageEditor $service,
         EditorInterface $editor,
-        Permissions $permissions
-    ) {
-        $this->allows($config->editCMSPermission());
+    ): array {
+        $this->allows($this->config->editCMSPermission());
 
-        $page = $source->findByPK($id);
+        $page = $this->source->findByPK($id);
         if (empty($page)) {
             return [
                 'status' => 400,
@@ -86,7 +93,7 @@ class ApiController extends Controller
             ];
         }
 
-        if ($page->status->isDraft() && !$permissions->canViewDraft()) {
+        if ($page->status->isDraft() && !$this->permissions->canViewDraft()) {
             throw new ForbiddenException();
         }
 
@@ -108,20 +115,13 @@ class ApiController extends Controller
 
     /**
      * @param string|int  $id
-     * @param PageSource  $source
-     * @param Config      $config
-     * @param Permissions $permissions
      * @return array
      */
-    public function getSourceAction(
-        $id,
-        PageSource $source,
-        Config $config,
-        Permissions $permissions
-    ) {
-        $this->allows($config->editCMSPermission());
+    public function getSourceAction($id): array 
+    {
+        $this->allows($this->config->editCMSPermission());
 
-        $page = $source->findByPK($id);
+        $page = $this->source->findByPK($id);
         if (empty($page)) {
             return [
                 'status' => 400,
@@ -129,7 +129,7 @@ class ApiController extends Controller
             ];
         }
 
-        if ($page->status->isDraft() && !$permissions->canViewDraft()) {
+        if ($page->status->isDraft() && !$this->permissions->canViewDraft()) {
             throw new ForbiddenException();
         }
 
@@ -160,9 +160,9 @@ class ApiController extends Controller
         Permissions $permissions,
         EditorInterface $editor
     ) {
-        $this->allows($config->editCMSPermission());
+        $this->allows($this-config->editCMSPermission());
 
-        $page = $source->findByPK($id);
+        $page = $this->source->findByPK($id);
         if (empty($page)) {
             return [
                 'status' => 400,
@@ -170,7 +170,7 @@ class ApiController extends Controller
             ];
         }
 
-        if ($page->status->isDraft() && !$permissions->canViewDraft()) {
+        if ($page->status->isDraft() && !$this->permissions->canViewDraft()) {
             throw new ForbiddenException();
         }
 
