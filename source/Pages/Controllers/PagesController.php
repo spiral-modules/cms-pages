@@ -8,17 +8,17 @@ use Spiral\Http\Exceptions\ClientExceptions\BadRequestException;
 use Spiral\Http\Exceptions\ClientExceptions\NotFoundException;
 use Spiral\Http\Request\InputManager;
 use Spiral\Http\Response\ResponseWrapper;
-use Spiral\Pages\EditorInterface;
 use Spiral\Pages\Database\Page;
 use Spiral\Pages\Database\Revision;
 use Spiral\Pages\Database\Sources\PageSource;
 use Spiral\Pages\Database\Sources\RevisionSource;
+use Spiral\Pages\EditorInterface;
 use Spiral\Pages\EditorProvider;
 use Spiral\Pages\Requests\Checkers\EntityChecker;
 use Spiral\Pages\Requests\PageRequest;
+use Spiral\Pages\Services\Labels\Statuses;
 use Spiral\Pages\Services\ListingService;
 use Spiral\Pages\Services\PageEditor;
-use Spiral\Pages\Services\Labels\Statuses;
 use Spiral\Security\Traits\GuardedTrait;
 use Spiral\Translator\Traits\TranslatorTrait;
 use Spiral\Vault\Vault;
@@ -47,6 +47,7 @@ class PagesController extends Controller
      * @param ListingService $listings
      * @param PageSource     $source
      * @param Statuses       $statuses
+     *
      * @return string
      */
     public function indexAction(
@@ -56,7 +57,7 @@ class PagesController extends Controller
     ) {
         return $this->views->render('pages:vault/list', [
             'listing'  => $listings->pagesListing($source->find()),
-            'statuses' => $statuses->labels()
+            'statuses' => [null => $this->say("All pages")] + $statuses->labels()
         ]);
     }
 
@@ -65,6 +66,7 @@ class PagesController extends Controller
      *
      * @param Statuses   $statuses
      * @param PageSource $source
+     *
      * @return string
      */
     public function addAction(Statuses $statuses, PageSource $source)
@@ -83,6 +85,7 @@ class PagesController extends Controller
      * @param string     $id
      * @param Statuses   $statuses
      * @param PageSource $source
+     *
      * @return string
      */
     public function createFromPageAction($id, Statuses $statuses, PageSource $source)
@@ -109,6 +112,7 @@ class PagesController extends Controller
      * @param Statuses       $statuses
      * @param PageSource     $source
      * @param RevisionSource $revisionSource
+     *
      * @return string
      */
     public function createFromRevisionAction(
@@ -140,6 +144,7 @@ class PagesController extends Controller
      *
      * @param string         $id
      * @param RevisionSource $source
+     *
      * @return string
      */
     public function viewRevisionAction($id, RevisionSource $source)
@@ -163,6 +168,7 @@ class PagesController extends Controller
      * @param PageSource     $source
      * @param Statuses       $statuses
      * @param RevisionSource $revisionSource
+     *
      * @return string
      */
     public function editAction(
@@ -192,6 +198,7 @@ class PagesController extends Controller
      * @param string                 $id
      * @param PageSource             $source
      * @param ServerRequestInterface $request
+     *
      * @return array|\Psr\Http\Message\ResponseInterface
      */
     public function actionAction($id, PageSource $source, ServerRequestInterface $request)
@@ -227,6 +234,7 @@ class PagesController extends Controller
      * @param PageEditor             $service
      * @param PageSource             $source
      * @param ServerRequestInterface $request
+     *
      * @return array|\Psr\Http\Message\ResponseInterface
      */
     public function deleteAction(
@@ -257,6 +265,7 @@ class PagesController extends Controller
 
     /**
      * @param ServerRequestInterface $request
+     *
      * @return \Psr\Http\Message\UriInterface|string
      */
     protected function actionPageRedirect(ServerRequestInterface $request)
@@ -273,6 +282,7 @@ class PagesController extends Controller
     /**
      * @param Page                   $page
      * @param ServerRequestInterface $request
+     *
      * @return \Psr\Http\Message\UriInterface|string
      */
     protected function deletePageRedirect(Page $page, ServerRequestInterface $request)
@@ -303,6 +313,7 @@ class PagesController extends Controller
      * @param PageSource      $source
      * @param PageRequest     $request
      * @param EditorInterface $editor
+     *
      * @return array
      */
     public function updateAction(
@@ -347,6 +358,7 @@ class PagesController extends Controller
      * @param RevisionSource  $source
      * @param PageEditor      $service
      * @param EditorInterface $editor
+     *
      * @return array|\Psr\Http\Message\ResponseInterface
      */
     public function applyRevisionAction(
@@ -391,6 +403,7 @@ class PagesController extends Controller
      * @param PageSource      $source
      * @param PageRequest     $request
      * @param EditorInterface $editor
+     *
      * @return array
      */
     public function createAction(
