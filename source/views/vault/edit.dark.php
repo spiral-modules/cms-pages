@@ -9,7 +9,7 @@
 ?>
 
 <define:actions>
-    <vault:uri target="pages" class="btn-flat teal-text waves-effect" post-icon="trending_flat">
+    <vault:uri target="pages" class="btn-flat  waves-effect" post-icon="trending_flat">
         [[Back]]
     </vault:uri>
 </define:actions>
@@ -19,33 +19,23 @@
         <tab:item id="caption" title="[[Caption]]" icon="info">
             <div class="row">
                 <div class="col s12 m8">
-                    <vault:form
-                        action="<?= vault()->uri('pages:update', ['id' => $page->primaryKey()]) ?>">
+                    <vault:form action="<?= vault()->uri('pages:update', ['id' => $page->primaryKey()]) ?>">
                         <div class="row">
                             <div class="col s12 m6">
-                                <form:input label="[[Title:]]" name="title"
-                                            value="<?= $page->title ?>"/>
-                                <form:input label="[[Slug:]]" name="slug"
-                                            value="<?= $page->slug ?>"/>
-                                <form:select label="[[Status:]]" name="status"
-                                             values="<?= $statuses ?>"
-                                             value="<?= $page->status ?>"/>
-                                <form:textarea label="[[Meta keywords:]]" name="keywords"
-                                               value="<?= $page->keywords ?>"/>
-                                <form:textarea label="[[Meta description:]]" name="description"
-                                               value="<?= $page->description ?>"/>
-                                <form:textarea label="[[Other custom meta tags:]]" name="metaTags"
-                                               value="<?= $page->metaTags ?>"/>
+                                <form:input label="[[Title:]]" name="title" value="<?= $page->title ?>"/>
+                                <form:input label="[[Slug:]]" name="slug" value="<?= $page->slug ?>"/>
+                                <form:select label="[[Status:]]" name="status" values="<?= $statuses ?>" value="<?= $page->status ?>"/>
+                                <form:textarea label="[[Meta keywords:]]" name="keywords" value="<?= $page->keywords ?>"/>
+                                <form:textarea label="[[Meta description:]]" name="description" value="<?= $page->description ?>"/>
+                                <form:textarea label="[[Other custom meta tags:]]" name="metaTags" value="<?= $page->metaTags ?>"/>
                             </div>
                             <div class="col s12 m6">
-                                <form:textarea label="[[Page source:]]" name="source" rows="40"
-                                               value="<?= $page->source ?>"/>
+                                <form:textarea label="[[Page source:]]" name="source" rows="40" value="<?= $page->source ?>"/>
                             </div>
                         </div>
                         <div class="right-align">
                             <vault:allowed permission="vault.pages.update">
-                                <input type="submit" value="[[SAVE]]"
-                                       class="btn teal waves-effect waves-light"/>
+                                <input type="submit" value="[[SAVE]]" class="btn  waves-effect waves-light"/>
                             </vault:allowed>
                         </div>
                     </vault:form>
@@ -81,14 +71,12 @@
                         <vault:allowed permission="vault.pages.add">
                             <div class="row">
                                 <div class="col s12 m5">
-                                    <vault:uri target="pages:createFromPage" icon="content_copy"
-                                               options="<?= ['id' => $page->primaryKey()] ?>"
+                                    <vault:uri target="pages:createFromPage" icon="content_copy" options="<?= ['id' => $page->primaryKey()] ?>"
                                                class="btn light-green waves-effect"> [[Copy]]
                                     </vault:uri>
                                 </div>
                                 <div class="col s12 m7">
-                            <span
-                                class="grey-text"> [[Opens "Create page" form with filled fields.]]</span>
+                                    <span class="grey-text"> [[Opens "Create page" form with filled fields.]]</span>
                                 </div>
                             </div>
                         </vault:allowed>
@@ -98,8 +86,7 @@
                             <vault:allowed permission="vault.pages.delete">
                                 <div class="row">
                                     <div class="col s12 m5">
-                                        <vault:uri target="pages:delete" icon="delete"
-                                                   options="<?= ['id' => $page->primaryKey()] ?>"
+                                        <vault:uri target="pages:delete" icon="delete" options="<?= ['id' => $page->primaryKey()] ?>"
                                                    class="btn red waves-effect"> [[Delete]]
                                         </vault:uri>
                                     </div>
@@ -114,8 +101,7 @@
                 </div>
             </div>
         </tab:item>
-        <tab:item id="revisions" icon="view_headline"
-                  title="[[Revisions]] <?= $page->revisions_count ? ('(' . $page->revisions_count . ')') : '' ?>">
+        <tab:item id="revisions" icon="view_headline" title="[[Revisions]] <?= $page->revisions_count ? ('(' . $page->revisions_count . ')') : '' ?>">
             <pages:vault.partials.revisions/>
         </tab:item>
     </tab:wrapper>
