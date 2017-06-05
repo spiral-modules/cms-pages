@@ -4,6 +4,7 @@ namespace Spiral\Pages\Requests\Api;
 
 use Spiral\Http\Request\RequestFilter;
 use Spiral\Pages\Requests\PageRequestInterface;
+use Spiral\Tokenizer\Isolator;
 
 /**
  * Class SourceRequest
@@ -17,21 +18,20 @@ class SourceRequest extends RequestFilter implements PageRequestInterface
     /**
      * @var array
      */
-    const SCHEMA = [
-        'source' => 'data:source',
-    ];
+    const SCHEMA    = ['source' => 'data:data.html',];
+    const VALIDATES = ['source' => ['notEmpty'],];
+    const SETTERS   = ['source' => 'trim',];
+    const GETTERS   = ['source' => [self::class, 'stripPHP']];
 
     /**
-     * @var array
+     * @param string $value
+     *
+     * @return string
      */
-    const VALIDATES = [
-        'source' => ['notEmpty'],
-    ];
+    public static function stripPHP(string $value): string
+    {
+        $isolator = spiral(Isolator::class);
 
-    /**
-     * {@inheritdoc}
-     */
-    const SETTERS = [
-        'source' => 'trim',
-    ];
+        return $isolator->isolatePHP($value);
+    }
 }
