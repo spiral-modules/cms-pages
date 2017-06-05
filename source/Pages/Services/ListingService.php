@@ -71,7 +71,7 @@ class ListingService extends Service
             ])
         );
 
-        $defaultState = new StaticState('title', ['status' => 'active'], SorterInterface::ASC);
+        $defaultState = new StaticState('title', ['status' => null], SorterInterface::ASC);
         $listing = $listing->setDefaultState($defaultState)->setNamespace('page');
 
         return $listing;
