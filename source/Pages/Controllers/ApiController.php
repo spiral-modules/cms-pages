@@ -5,12 +5,12 @@ namespace Spiral\Pages\Controllers;
 use Spiral\Core\Controller;
 use Spiral\Http\Exceptions\ClientExceptions\ForbiddenException;
 use Spiral\Pages\Config;
-use Spiral\Pages\EditorInterface;
 use Spiral\Pages\Database\Sources\PageSource;
+use Spiral\Pages\EditorInterface;
+use Spiral\Pages\Permissions;
 use Spiral\Pages\Requests\Api\MetaRequest;
 use Spiral\Pages\Requests\Api\SourceRequest;
 use Spiral\Pages\Services\PageEditor;
-use Spiral\Pages\Permissions;
 use Spiral\Security\Traits\GuardedTrait;
 use Spiral\Translator\Traits\TranslatorTrait;
 
@@ -26,8 +26,8 @@ class ApiController extends Controller
     private $source;
     private $config;
     private $permissions;
-    
-     /**
+
+    /**
      * @param PageSource  $source
      * @param Config      $config
      * @param Permissions $permissions
@@ -38,12 +38,13 @@ class ApiController extends Controller
         $this->config = $config;
         $this->permissions = $permissions;
     }
-    
+
     /**
-     * @param string|int  $id
+     * @param string|int $id
+     *
      * @return array
      */
-    public function getMetaAction($id): array
+    public function getMetaAction(string $id): array
     {
         $this->allows($this->config->editCMSPermission());
 
@@ -75,13 +76,14 @@ class ApiController extends Controller
      * @param MetaRequest     $request
      * @param PageEditor      $service
      * @param EditorInterface $editor
+     *
      * @return array
      */
     public function saveMetaAction(
-        $id,
+        string $id,
         MetaRequest $request,
         PageEditor $service,
-        EditorInterface $editor,
+        EditorInterface $editor
     ): array {
         $this->allows($this->config->editCMSPermission());
 
@@ -114,10 +116,11 @@ class ApiController extends Controller
     }
 
     /**
-     * @param string|int  $id
+     * @param string|int $id
+     *
      * @return array
      */
-    public function getSourceAction($id): array 
+    public function getSourceAction(string $id): array
     {
         $this->allows($this->config->editCMSPermission());
 
@@ -143,24 +146,19 @@ class ApiController extends Controller
 
     /**
      * @param string|int      $id
-     * @param PageSource      $source
      * @param SourceRequest   $request
-     * @param Config          $config
      * @param PageEditor      $service
-     * @param Permissions     $permissions
      * @param EditorInterface $editor
+     *
      * @return array
      */
     public function saveSourceAction(
-        $id,
-        PageSource $source,
+        string $id,
         SourceRequest $request,
-        Config $config,
         PageEditor $service,
-        Permissions $permissions,
         EditorInterface $editor
     ) {
-        $this->allows($this-config->editCMSPermission());
+        $this->allows($this->config->editCMSPermission());
 
         $page = $this->source->findByPK($id);
         if (empty($page)) {
