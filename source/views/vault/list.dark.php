@@ -58,9 +58,12 @@
         <listing:grid listing="<?= $listing ?>" as="entity" color="" class="striped">
             <grid:cell sorter="id" label="[[ID:]]" value="<?= $entity->primaryKey() ?>"/>
             <grid:cell sorter="title" label="[[Title:]]">
-                <a href="/<?= $entity->slug ?>" target="_blank"><i class="material-icons tiny"><?= $statusClass[(string)$entity->status] ?></i> <?php
-                    echo e(\Spiral\Support\Strings::shorter($entity->title, 100))
-                    ?></a>
+                <i class="material-icons tiny"><?= $statusClass[(string)$entity->status] ?></i> <?php
+                echo e(\Spiral\Support\Strings::shorter($entity->title, 100))
+                ?>
+            </grid:cell>
+            <grid:cell sorter="title" label="[[Slug:]]">
+                <a href="/<?= $entity->slug ?>" target="_blank"><?= e(\Spiral\Support\Strings::shorter($entity->slug, 100)) ?></a>
             </grid:cell>
             <grid:cell sorter="time_created" label="[[Created:]]" value="<?= $entity->time_created->format('M jS, Y H:i') ?>"/>
             <grid:cell label="[[Revisions:]]" sorter="revisions_count" value="<?= $entity->revisions_count ?>"/>
