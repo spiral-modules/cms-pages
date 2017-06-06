@@ -63,7 +63,7 @@
                 ?>
             </grid:cell>
             <grid:cell sorter="title" label="[[Slug:]]">
-                <a href="/<?= $entity->slug ?>" target="_blank"><?= e(\Spiral\Support\Strings::shorter($entity->slug, 100)) ?></a>
+                <a href="/<?= $entity->slug ?>" target="_blank">/<?= e(\Spiral\Support\Strings::shorter($entity->slug, 100)) ?></a>
             </grid:cell>
             <grid:cell sorter="time_created" label="[[Created:]]" value="<?= $entity->time_created->format('M jS, Y H:i') ?>"/>
             <grid:cell label="[[Revisions:]]" sorter="revisions_count" value="<?= $entity->revisions_count ?>"/>

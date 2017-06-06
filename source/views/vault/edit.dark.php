@@ -68,27 +68,13 @@
                         </dl>
                     </vault:block>
                     <vault:card>
-                        <vault:allowed permission="vault.pages.add">
-                            <div class="row">
-                                <div class="col s12 m5">
-                                    <vault:uri target="pages:createFromPage" icon="content_copy" options="<?= ['id' => $page->primaryKey()] ?>"
-                                               class="btn light-green waves-effect"> [[Copy]]
-                                    </vault:uri>
-                                </div>
-                                <div class="col s12 m7">
-                                    <span class="grey-text"> [[Opens "Create page" form with filled fields.]]</span>
-                                </div>
-                            </div>
-                        </vault:allowed>
-                    </vault:card>
-                    <vault:card>
                         <?php if (!$page->status->isDeleted()) { ?>
                             <vault:allowed permission="vault.pages.delete">
                                 <div class="row">
                                     <div class="col s12 m5">
-                                        <vault:uri target="pages:delete" icon="delete" options="<?= ['id' => $page->primaryKey()] ?>"
+                                        <vault:uriconfirm target="pages:delete" icon="delete" options="<?= ['id' => $page->primaryKey()] ?>"
                                                    class="btn red waves-effect"> [[Delete]]
-                                        </vault:uri>
+                                        </vault:uriconfirm>
                                     </div>
                                     <div class="col s12 m7">
                                         <span class="grey-text"> [[Delete page. It can be restored after deletion, ask your webmaster.]]
@@ -106,3 +92,19 @@
         </tab:item>
     </tab:wrapper>
 </define:content>
+
+//Copy page
+<vault:card>
+    <vault:allowed permission="vault.pages.add">
+        <div class="row">
+            <div class="col s12 m5">
+                <vault:uri target="pages:createFromPage" icon="content_copy" options="<?= ['id' => $page->primaryKey()] ?>"
+                           class="btn light-green waves-effect"> [[Copy]]
+                </vault:uri>
+            </div>
+            <div class="col s12 m7">
+                <span class="grey-text"> [[Opens "Create page" form with filled fields.]]</span>
+            </div>
+        </div>
+    </vault:allowed>
+</vault:card>
