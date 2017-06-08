@@ -55,7 +55,7 @@
         </listing:form>
     </vault:card>
 
-    <listing:grid listing="<?= $listing ?>" as="entity" color="" class="striped">
+    <vault:listing listing="<?= $listing ?>" as="entity" color="" class="striped">
         <grid:cell sorter="id" label="[[ID:]]" value="<?= $entity->primaryKey() ?>"/>
         <grid:cell sorter="title" label="[[Title:]]">
             <i class="material-icons tiny"><?= $statusClass[(string)$entity->status] ?></i> <?php
@@ -70,5 +70,5 @@
         <grid:cell class="right-align">
             <vault:uri target="pages:edit" icon="edit" options="<?= ['id' => $entity->primaryKey()] ?>" class="btn-flat waves-effect"/>
         </grid:cell>
-    </listing:grid>
+    </vault:listing>
 </define:content>
