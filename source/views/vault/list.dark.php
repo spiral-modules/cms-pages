@@ -54,22 +54,21 @@
             </div>
         </listing:form>
     </vault:card>
-    <vault:card>
-        <listing:grid listing="<?= $listing ?>" as="entity" color="" class="striped">
-            <grid:cell sorter="id" label="[[ID:]]" value="<?= $entity->primaryKey() ?>"/>
-            <grid:cell sorter="title" label="[[Title:]]">
-                <i class="material-icons tiny"><?= $statusClass[(string)$entity->status] ?></i> <?php
-                echo e(\Spiral\Support\Strings::shorter($entity->title, 100))
-                ?>
-            </grid:cell>
-            <grid:cell sorter="title" label="[[Slug:]]">
-                <a href="/<?= $entity->slug ?>" target="_blank">/<?= e(\Spiral\Support\Strings::shorter($entity->slug, 100)) ?></a>
-            </grid:cell>
-            <grid:cell sorter="time_created" label="[[Created:]]" value="<?= $entity->time_created->format('M jS, Y H:i') ?>"/>
-            <grid:cell label="[[Revisions:]]" sorter="revisions_count" value="<?= $entity->revisions_count ?>"/>
-            <grid:cell class="right-align">
-                <vault:uri target="pages:edit" icon="edit" options="<?= ['id' => $entity->primaryKey()] ?>" class="btn-flat waves-effect"/>
-            </grid:cell>
-        </listing:grid>
-    </vault:card>
+
+    <listing:grid listing="<?= $listing ?>" as="entity" color="" class="striped">
+        <grid:cell sorter="id" label="[[ID:]]" value="<?= $entity->primaryKey() ?>"/>
+        <grid:cell sorter="title" label="[[Title:]]">
+            <i class="material-icons tiny"><?= $statusClass[(string)$entity->status] ?></i> <?php
+            echo e(\Spiral\Support\Strings::shorter($entity->title, 100))
+            ?>
+        </grid:cell>
+        <grid:cell sorter="title" label="[[Slug:]]">
+            <a href="/<?= $entity->slug ?>" target="_blank">/<?= e(\Spiral\Support\Strings::shorter($entity->slug, 100)) ?></a>
+        </grid:cell>
+        <grid:cell sorter="time_created" label="[[Created:]]" value="<?= $entity->time_created->format('M jS, Y H:i') ?>"/>
+        <grid:cell label="[[Revisions:]]" sorter="revisions_count" value="<?= $entity->revisions_count ?>"/>
+        <grid:cell class="right-align">
+            <vault:uri target="pages:edit" icon="edit" options="<?= ['id' => $entity->primaryKey()] ?>" class="btn-flat waves-effect"/>
+        </grid:cell>
+    </listing:grid>
 </define:content>
