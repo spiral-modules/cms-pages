@@ -98,10 +98,10 @@ class PagesController extends Controller
         $this->allows('add');
 
         return $this->views->render('pages:vault/create', [
-            'statuses'   => $statuses->labels(),
-            'page'       => $page,
-            'isCopy'     => true,
-            'PageSource' => $page
+            'statuses' => $statuses->labels(),
+            'page'     => $page,
+            'isCopy'   => true,
+            'source'   => $page
         ]);
     }
 
@@ -132,10 +132,10 @@ class PagesController extends Controller
         $page = $source->createFromRevision($revision);
 
         return $this->views->render('pages:vault/create', [
-            'statuses'   => $statuses->labels(),
-            'page'       => $page,
-            'isCopy'     => true,
-            'PageSource' => $revision
+            'statuses' => $statuses->labels(),
+            'page'     => $page,
+            'isCopy'   => true,
+            'source'   => $revision
         ]);
     }
 

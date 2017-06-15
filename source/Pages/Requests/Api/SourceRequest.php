@@ -21,17 +21,4 @@ class SourceRequest extends RequestFilter implements PageRequestInterface
     const SCHEMA    = ['source' => 'data:data.html',];
     const VALIDATES = ['source' => ['notEmpty'],];
     const SETTERS   = ['source' => 'trim',];
-    const GETTERS   = ['source' => [self::class, 'stripPHP']];
-
-    /**
-     * @param string $value
-     *
-     * @return string
-     */
-    public static function stripPHP(string $value): string
-    {
-        $isolator = spiral(Isolator::class);
-
-        return $isolator->isolatePHP($value);
-    }
 }
