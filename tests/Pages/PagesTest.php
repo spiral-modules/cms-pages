@@ -65,7 +65,7 @@ class PagesTest extends BaseTest
         $meta = $pages->getMeta($page, [
             'keywords'    => 'some keywords',
             'description' => 'some description',
-            'metaTags'    => 'some metaTags',
+            'html'        => 'some metaTags',
         ]);
         $this->assertEmpty($meta['title']);
         $this->assertSame($meta['keywords'], 'some keywords');
@@ -83,7 +83,7 @@ class PagesTest extends BaseTest
         $meta = $pages->getMeta($page, [
             'keywords'    => 'some keywords',
             'description' => 'some description',
-            'metaTags'    => 'some metaTags',
+            'html'        => 'some metaTags',
         ]);
         $this->assertSame($meta['title'], 'title');
         $this->assertSame($meta['keywords'], 'keywords');
