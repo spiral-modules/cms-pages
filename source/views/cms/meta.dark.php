@@ -19,7 +19,7 @@ $pages = spiral(\Spiral\Pages\Pages::class);
 $meta = $pages->getMeta($page, [
     'description' => $page_metadata_description,
     'keywords'    => $page_metadata_keywords,
-    'html'    => $page_metadata_metaTags
+    'html'        => $page_metadata_metaTags
 ]);
 
 if (!empty($meta['html'])) {
