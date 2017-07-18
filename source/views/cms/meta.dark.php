@@ -19,11 +19,11 @@ $pages = spiral(\Spiral\Pages\Pages::class);
 $meta = $pages->getMeta($page, [
     'description' => $page_metadata_description,
     'keywords'    => $page_metadata_keywords,
-    'metaTags'    => $page_metadata_metaTags
+    'html'        => $page_metadata_metaTags
 ]);
 
-if (!empty($meta['metaTags'])) {
-    echo $meta['metaTags'];
+if (!empty($meta['html'])) {
+    echo $meta['html'];
 } ?>
 
     <title><?= e($meta['title']) ?></title>

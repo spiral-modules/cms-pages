@@ -29,6 +29,7 @@ class Pages extends Service
     /**
      * @param string $uri
      * @param bool   $activeOnly
+     *
      * @return null|Page
      */
     public function find(string $uri, bool $activeOnly = true)
@@ -39,6 +40,7 @@ class Pages extends Service
     /**
      * @param Page  $page
      * @param array $defaults
+     *
      * @return array
      */
     public function getMeta(Page $page, array $defaults): array
@@ -47,7 +49,7 @@ class Pages extends Service
             'title'       => $page->title,
             'keywords'    => $page->keywords ?: $this->defaults($defaults, 'keywords'),
             'description' => $page->description ?: $this->defaults($defaults, 'description'),
-            'metaTags'    => $page->metaTags ?: $this->defaults($defaults, 'metaTags')
+            'html'        => $page->metaTags ?: $this->defaults($defaults, 'html')
         ];
     }
 
@@ -55,6 +57,7 @@ class Pages extends Service
      * @param array  $defaults
      * @param string $field
      * @param string $default
+     *
      * @return string
      */
     protected function defaults(array $defaults, string $field, string $default = ''): string

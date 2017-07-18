@@ -24,7 +24,7 @@ class MetaRequest extends RequestFilter implements PageRequestInterface
         'title'       => 'data:title',
         'description' => 'data:description',
         'keywords'    => 'data:keywords',
-        'metaTags'    => 'data:metaTags',
+        'metaTags'    => 'data:html',
     ];
 
     /**
