@@ -23,7 +23,7 @@ class PagesBootloader extends Bootloader
     {
         $route = new Route(
             'api_pages',
-            'api/pages/[/<action>]',
+            'api/pages[/<action>]',
             'Spiral\Pages\Controllers\ApiController::<action>'
         );
 
