@@ -70,7 +70,7 @@ class PagesTest extends BaseTest
         $this->assertEmpty($meta['title']);
         $this->assertSame($meta['keywords'], 'some keywords');
         $this->assertSame($meta['description'], 'some description');
-        $this->assertSame($meta['metaTags'], 'some metaTags');
+        $this->assertSame($meta['html'], 'some metaTags');
 
         $page->title = 'title';
         $page->keywords = 'keywords';
@@ -88,6 +88,6 @@ class PagesTest extends BaseTest
         $this->assertSame($meta['title'], 'title');
         $this->assertSame($meta['keywords'], 'keywords');
         $this->assertSame($meta['description'], 'description');
-        $this->assertSame($meta['metaTags'], 'metaTags');
+        $this->assertSame($meta['html'], 'metaTags');
     }
 }
