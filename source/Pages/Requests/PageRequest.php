@@ -6,6 +6,7 @@ use Spiral\Http\Request\RequestFilter;
 use Spiral\Pages\Database\Sources\PageSource;
 use Spiral\Pages\Database\Types\PageStatus;
 use Spiral\Pages\Requests\Checkers\EntityChecker;
+use Spiral\Support\Strings;
 
 /**
  * Class PageRequest
@@ -82,6 +83,6 @@ class PageRequest extends RequestFilter implements PageRequestInterface
      */
     public static function slugSetter($value): string
     {
-        return strtolower(trim($value, ' /'));
+        return Strings::slug(strtolower(trim($value, ' /')));
     }
 }
