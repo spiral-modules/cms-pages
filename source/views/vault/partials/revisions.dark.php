@@ -1,3 +1,5 @@
+<dark:use path="spiral:listing/*" namespace="listing"/>
+
 <?php #compile
 /**
  * @var \Spiral\Pages\Database\Page     $page
